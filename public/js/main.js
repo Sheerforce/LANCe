@@ -6,7 +6,7 @@ $(function(){
 
 	var formatTime = function(){
 		var d = new Date();
-		var a = d.getHours(), b = d.getMinutes(), c = d.getSeconds();  
+		var a = d.getHours(), b = d.getMinutes(), c = d.getSeconds();
 		return '[' + [a,b,c].join(':') + ']';
 	}
 
@@ -15,12 +15,6 @@ $(function(){
 	}
 
 	window.addEventListener('keydown', function(e){
-		if(!e.ctrlKey && e.keyCode != 9 && e.keyCode != 38 && e.keyCode != 40){ // Not a ctrl key combo or tab
-			$('#msgBar').focus();
-		}
-		if(e.keyCode == 220){
-			console.log(chatHistory + ' ' + chIndex);
-		}
 		if(e.keyCode == 38 && $('#msgBar').is(':focus') && chIndex >= 0){
 			chIndex--;
 			$('#msgBar').val(chatHistory[chIndex]);
