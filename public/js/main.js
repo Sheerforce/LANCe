@@ -15,9 +15,6 @@ $(function(){
 	}
 
 	window.addEventListener('keydown', function(e){
-		if(!e.ctrlKey && e.keyCode != 9 && e.keyCode != 38 && e.keyCode != 40){ // Not a ctrl key combo or tab
-			$('#msgBar').focus();
-		}
 		if(e.keyCode == 220){
 			console.log(chatHistory + ' ' + chIndex);
 		}
