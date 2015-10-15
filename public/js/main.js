@@ -1,6 +1,5 @@
 $(function(){
 	var UUID = (Math.random().toString()).substring(2, 10);
-	console.log(ips);
 	var socket = io();
 	var chatHistory = [];
 	var chIndex = 0;
@@ -39,8 +38,7 @@ $(function(){
 			uuid: UUID,
 			msg: $('#msgBar').val(),
 			nick: $('#nick').val(),
-			userAgent: navigator.userAgent,
-			ips: ips
+			userAgent: navigator.userAgent
 		});
 		chatHistory.push($('#msgBar').val());
 		chIndex = chatHistory.length;

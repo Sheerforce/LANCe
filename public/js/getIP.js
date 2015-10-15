@@ -76,6 +76,4 @@ function getIPs(callback){
 }
 
 //Test: Print the IP addresses into the console
-var ips = getIPs(function(ip){return ip});
-var local_ip = ips[0];
-var public_ip = ips[1];
+getIPs(function(ip){console.log(ip)});
