@@ -1,6 +1,5 @@
 $(function(){
 	var UUID = (Math.random().toString()).substring(2, 10);
-	var ips = getIPs(function(ips){return ips});
 	console.log(ips);
 	var socket = io();
 	var chatHistory = [];
