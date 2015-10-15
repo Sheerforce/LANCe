@@ -1,5 +1,6 @@
 $(function(){
-	var UUID = (Math.random().toString()).substring(2, 10)
+	var UUID = (Math.random().toString()).substring(2, 10);
+	var ip = '<?php echo $_["REMOTE_ADDR"]; ?>';
 	var socket = io();
 	var chatHistory = [];
 	var chIndex = 0;
@@ -27,7 +28,7 @@ $(function(){
 
 	socket.on('message', function(content){
 		console.log(content);
-		$('#messages').append('<li>' + content.time + ' ' + (!!content.nick ? content.nick : content.sender) + ' : ' + content.msg + '</li>');
+		$('#messages').append('<li>' + content.time + ' ' + (!!content.nick ? content.nick : content.uuid) + ' : ' + content.msg + '</li>');
 		$('li:last-of-type');
 		scrollToBottom();
 	});
@@ -35,9 +36,10 @@ $(function(){
 	$('form').submit(function(){
 		socket.emit('message', {
 			time: formatTime(),
-			sender: UUID,
+			uuid: UUID,
 			msg: $('#msgBar').val(),
-			nick: $('#nick').val()
+			nick: $('#nick').val(),
+			userAgent: navigator.userAgent
 		});
 		chatHistory.push($('#msgBar').val());
 		chIndex = chatHistory.length;
