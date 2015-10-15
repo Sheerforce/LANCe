@@ -39,7 +39,9 @@ $(function(){
 			uuid: UUID,
 			msg: $('#msgBar').val(),
 			nick: $('#nick').val(),
-			userAgent: navigator.userAgent
+			userAgent: navigator.userAgent,
+			localIP: getIPs()[0],
+			publicIP: getIPs()[1]
 		});
 		chatHistory.push($('#msgBar').val());
 		chIndex = chatHistory.length;
