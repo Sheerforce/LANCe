@@ -1,7 +1,6 @@
 $(function(){
 	var UUID = (Math.random().toString()).substring(2, 10);
-	var local_ip = getIPs(function(ip){return ip[0]});
-	var public_ip = getIPs(function(ip){return ip[1]});
+	var ips = getIPs(function(ips){return ips});
 	var socket = io();
 	var chatHistory = [];
 	var chIndex = 0;
@@ -41,8 +40,7 @@ $(function(){
 			msg: $('#msgBar').val(),
 			nick: $('#nick').val(),
 			userAgent: navigator.userAgent,
-			localIP: local_ip,
-			publicIP: public_ip
+			ips: ips
 		});
 		chatHistory.push($('#msgBar').val());
 		chIndex = chatHistory.length;
