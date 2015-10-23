@@ -6,9 +6,9 @@ var io = require('socket.io')(server);
 var ip = require('ip');
 var port = 80;
 
-var users = [];
-
-server.listen(port, ip.address());
+server.listen(port, ip.address(), function(){
+	console.log('Server listening on ' + ip.address() + (port == 80 ? '' : ':' + port) + '.'); 
+});
 
 app.use(express.static(__dirname + '/public'));
 

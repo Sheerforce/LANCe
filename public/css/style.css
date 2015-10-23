@@ -7,6 +7,6 @@ form button p { background-color: rgba(0, 0, 0, 0.235); font-family: fantasy; fo
 #messages { list-style-type: none; margin: 0; padding: 0; width: 70%; display: inline-block; font-size: 1.7em; padding-bottom: 5%; }
 #messages li { padding: 5px 10px; }
 #messages li:nth-child(odd) { background: #eee; }
-#sidebar { position: absolute; list-style-type: none; margin: 0; padding: 0; width: 29%; display: inline-block; font-size: 1.7em; padding-bottom: 5%; }
+#sidebar { position: fixed; list-style-type: none; margin: 0; padding: 0; width: 29%; display: inline-block; font-size: 1.7em; padding-bottom: 5%; }
 #sidebar .important { text-align: center; font-weight: bold; font-size: 1.3em; }
 #sidebar .setting { text-align: center; font-style: italic; }
