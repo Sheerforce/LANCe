@@ -4,13 +4,14 @@ var http = require('http');
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 var ip = require('ip');
-var port = 3000;
+var port = 80;
 
 var users = [];
 
-server.listen(port, function () {
-  console.log('Server listening at ' + ip.address() + ':' + port);
-});
+server.listen(port, ip.address());
+//, function () {
+//  console.log('Server listening at ' + ip.address() + ':' + port);
+//});
 
 app.use(express.static(__dirname + '/public'));
 
