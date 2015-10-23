@@ -10,3 +10,4 @@ form button p { background-color: rgba(0, 0, 0, 0.235); font-family: fantasy; fo
 #sidebar { position: fixed; list-style-type: none; margin: 0; padding: 0; width: 29%; display: inline-block; font-size: 1.7em; padding-bottom: 5%; }
 #sidebar .important { text-align: center; font-weight: bold; font-size: 1.3em; }
 #sidebar .setting { text-align: center; font-style: italic; }
+#sidebar .notification {  }

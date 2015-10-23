@@ -1,8 +1,12 @@
 $(function(){
+	$.notify.defaults({ className: 'success' });
+
 	var UUID = (Math.random().toString()).substring(2, 10)
 	var socket = io();
 	var chatHistory = [];
 	var chIndex = 0;
+	var nick = '';
+
 
 	var formatTime = function(){
 		var d = new Date();
@@ -30,7 +34,21 @@ $(function(){
 
 	socket.on('message', function(content){
 		console.log(content);
-		$('#messages').append('<li>' + content.time + ' ' + (!!content.nick ? content.nick : content.sender) + ' : ' + content.msg + '</li>');
+		sender = (content.nick ? content.nick : content.sender)
+		if (!sender == $('#nick').val() || UUID) {
+			$.notify(
+				'Message From: ' + sender,
+				{ position: 'top center' }
+			);
+		}
+
+		else {
+			$.notify(
+				'Message Sent',
+				{ position: 'top center' }
+			);
+		}
+		$('#messages').append('<li>' + content.time + ' ' + sender + ' : ' + content.msg + '</li>');
 		$('li:last-of-type');
 		scrollToBottom();
 	});
@@ -46,5 +64,18 @@ $(function(){
 		chIndex = chatHistory.length;
 		$('#msgBar').val('');
 		return false;
+	});
+	$('#clear').click(function(){
+		$('#messages').empty();
+		$.notify(
+			'Chat Cleared',
+			{ position: 'top center' }
+		);
+	});
+	$('#nick').focusout(function(){
+		$.notify(
+			'Nickname Changed',
+			{ position: 'top center' }
+		);
 	});
 });
