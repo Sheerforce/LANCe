@@ -9,9 +9,6 @@ var port = 80;
 var users = [];
 
 server.listen(port, ip.address());
-//, function () {
-//  console.log('Server listening at ' + ip.address() + ':' + port);
-//});
 
 app.use(express.static(__dirname + '/public'));
 
