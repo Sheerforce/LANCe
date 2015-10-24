@@ -2,8 +2,12 @@
 <html>
 	<head>
 		<title>LANCe</title>
+		<meta name="viewport" content="width=540, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
 		<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="js/socket.io-1.3.7.js"></script>
 		<script type="text/javascript" src="js/notify-combined.min.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
@@ -12,8 +16,13 @@
 		<ul id="messages"></ul>
 		<ul id="sidebar">
 			<li class="important">Settings</li>
-			<li class="setting">Nick: <input type="text" id="nick" autocomplete="off"></input></li>
-			<li class="setting">Clear Chat <button id="clear">Clear</button></li>
+			<hr>
+			<li class="setting">Nickname</li>
+			<li class="setting"><input type="text" id="nick" autocomplete="off"></input></li>
+			<hr>
+			<li class="setting">Clear Chat</li>
+			<li class="setting"><button id="clear">Clear</button></li>
+			<hr>
 		</ul>
 		<span id="notifications"></span>
 		<form action="">
