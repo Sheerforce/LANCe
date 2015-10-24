@@ -4,8 +4,8 @@
 body { font: 13px Helvetica, Arial; }
 form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
 form input { border: 0; font-size: 2em; padding: 10px; width: 86%; margin-right: 0.5%; }
-form button { width: 13%; background: #5E29AE; border: none; padding: 10px; }
-form button p { background-color: rgba(0, 0, 0, 0.235); font-family: fantasy; font-size: 2em; }
+form button { width: 13%;/* background: #5E29AE;*/ border: none; padding: 10px; }
+form button p { font-family: monospace; font-size: 2em; }
 #messages { list-style-type: none; margin: 0; padding: 0; width: 60%; display: inline-block; font-size: 1.7em; padding-bottom: 10%; }
 #messages li { padding: 5px 10px; }
 #messages li:nth-child(odd) { background: #eee; }
