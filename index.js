@@ -41,7 +41,10 @@ io.on('connection', function (socket) {
 setInterval(function(){
 	var users = [];
 	for (var i in clients) {
-		users.push(clients[i].nick != '' ? clients[i].nick : clients[i].uuid);
+		users.push({
+			name: (clients[i].nick != '' ? clients[i].nick : clients[i].uuid),
+			address: clients[0].handshake.address
+		});
 	}
 	io.emit('user list', users);
-}, 100);
+}, 2000);

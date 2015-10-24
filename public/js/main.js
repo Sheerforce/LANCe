@@ -49,10 +49,11 @@ $(function(){
 	socket.on('user list', function (content) {
 		$('#users').html('<li class="important">Users</li>');
 		for (var i in content) {
-			if (content[i] != null) {
-				$('#users').append('<li>' + content[i] + '</li>');
+			if (content[i].name != null && content[i] != undefined) {
+				$('#users').append('<div data-toggle="tooltip" title="' + 'IP: ' + content[i].address + '">' + '<li>' + content[i].name + '</li></div>');
 			}
 		}
+		$('[data-toggle="tooltip"]').tooltip(); 
 	});
 
 	socket.on('command', function (content) {
