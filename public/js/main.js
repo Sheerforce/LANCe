@@ -36,11 +36,11 @@ $(function(){
 
 	socket.on('message', function(content){
 		console.log(content);
-		sender = (content.nick ? content.nick : content.sender)
-		if (sender != UUID && sender != $('#nick').val()) {
+		var from = content.nick || content.sender;
+		if (from != UUID && from != $('#nick').val()) {
 			ding.play();
 		}
-		$('#messages').append('<li>' + content.time + ' ' + sender + ' : ' + content.msg + '</li>');
+		$('#messages').append('<li>' + content.time + ' ' + from + ' : ' + content.msg + '</li>');
 		scrollToBottom();
 	});
 
