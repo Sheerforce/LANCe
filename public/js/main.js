@@ -1,11 +1,15 @@
 $(function(){
+
+	var ding = new Audio('assets/ding.mp3');
+
 	$.notify.defaults({ className: 'success' });
 
-	var UUID = (Math.random().toString()).substring(2, 10)
-	var socket = io();
-	var chatHistory = [];
-	var chIndex = 0;
-	var nick = '';
+	var		
+		UUID = (Math.random().toString()).substring(2, 10),
+		socket = io(),
+		chatHistory = [],
+		chIndex = 0,
+		notificationPos = 'right top';
 
 
 	var formatTime = function(){
@@ -35,21 +39,21 @@ $(function(){
 	socket.on('message', function(content){
 		console.log(content);
 		sender = (content.nick ? content.nick : content.sender)
-		if (!sender == $('#nick').val() || UUID) {
+		// console.log(sender, $('#nick').val(), UUID);
+		if (sender != UUID && send != $('#nick').val()) {
 			$.notify(
 				'Message From: ' + sender,
-				{ position: 'top center' }
+				{ position: notificationPos }
 			);
+			ding.play();
 		}
-
 		else {
 			$.notify(
 				'Message Sent',
-				{ position: 'top center' }
+				{ position: notificationPos }
 			);
 		}
 		$('#messages').append('<li>' + content.time + ' ' + sender + ' : ' + content.msg + '</li>');
-		$('li:last-of-type');
 		scrollToBottom();
 	});
 
@@ -69,13 +73,13 @@ $(function(){
 		$('#messages').empty();
 		$.notify(
 			'Chat Cleared',
-			{ position: 'top center' }
+			{ position: notificationPos }
 		);
 	});
 	$('#nick').focusout(function(){
 		$.notify(
 			'Nickname Changed',
-			{ position: 'top center' }
+			{ position: notificationPos }
 		);
 	});
 });
