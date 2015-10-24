@@ -16,11 +16,16 @@ $(function(){
 		chIndex = 0,
 		msgDelay = {this: 0, last: 0};
 
-	var scrollToBottom = function(){
+	socket.emit('userinfo', {
+		uuid: UUID,
+		nick: ''
+	});
+
+	var scrollToBottom = function () {
 		window.scrollTo(0, document.body.scrollHeight);
 	}
 
-	$(window).keydown(function(e){
+	$(window).keydown(function (e) {
 		if(e.keyCode == 220){
 			console.log(chatHistory + ' ' + chIndex);
 		}
@@ -34,7 +39,7 @@ $(function(){
 		}
 	});
 
-	socket.on('message', function(content){
+	socket.on('message', function (content){
 		console.log(content);
 		var from = content.nick || content.sender;
 		if (from != UUID && from != $('#nick').val()) {
@@ -42,6 +47,14 @@ $(function(){
 		}
 		$('#messages').append('<li>' + content.time + ' ' + from + ' : ' + content.msg + '</li>');
 		scrollToBottom();
+	});
+
+	socket.on('user list', function (content) {
+		console.log('Received user list: ' + content);
+		$('#users').html('<li class="important">Users</li>');
+		for (var i in content) {
+			$('#users').append('<li>' + content[i] + '</li>');
+		}
 	});
 
 	$('form').submit(function(){
@@ -58,4 +71,15 @@ $(function(){
 	$('#clear').click(function(){
 		$('#messages').empty();
 	});
+	$('#nick')
+		.focusin(function(){
+			socket.emit('userinfo', {
+				uuid: UUID, nick: $('#nick').val()
+			});
+		})
+		.focusout(function(){
+			socket.emit('userinfo', {
+				uuid: UUID, nick: $('#nick').val()
+			});
+		});
 });

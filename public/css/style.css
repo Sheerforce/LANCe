@@ -9,11 +9,10 @@ form button p { font-family: monospace; font-size: 2em; }
 #messages { list-style-type: none; margin: 0; padding: 0; width: 60%; display: inline-block; font-size: 1.7em; padding-bottom: 10%; }
 #messages li { padding: 5px 10px; }
 #messages li:nth-child(odd) { background: #eee; }
-#notifications { width: 15%; display: inline-block; }
+#users { width: 15%; display: inline-block; float: right; text-align: center; list-style-type: none; }
 #sidebar { position: fixed; list-style-type: none; margin: 0; padding: 0; width: 24%; display: inline-block; font-size: 1.7em; padding-bottom: 5%; }
-#sidebar .important { text-align: center; font-weight: bold; font-size: 1.3em; }
+.important { text-align: center; font-weight: bold; font-size: 1.3em; }
 #sidebar .setting { text-align: center; font-style: italic; }
-#sidebar .important { text-align: center; }
 button {
   background: #3498db;
   background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
