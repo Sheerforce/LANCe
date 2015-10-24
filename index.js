@@ -14,7 +14,10 @@ var formatTime = function(){
 }
 
 server.listen(port, ip.address(), function() {
-	console.log('Server listening on ' + ip.address() + (port == 80 ? '' : ':' + port) + '.'); 
+	console.log('Server listening on ' + ip.address() + (port == 80 ? '' : ':' + port) + '.');
+	setTimeout(function(){
+		io.emit('command', 'alert("Server Reloading (Updates)"); window.location.reload(true);');
+	}, 1000); 
 });
 
 app.use(express.static(__dirname + '/public'));
@@ -30,7 +33,6 @@ io.on('connection', function (socket) {
 		clients.splice(clients.indexOf(socket), 1);
 	});
 	socket.on('userinfo', function (content) {
-		console.log('Received content: ' + content);
 		socket.uuid = content.uuid;
 		socket.nick = content.nick;
 	});
@@ -41,6 +43,5 @@ setInterval(function(){
 	for (var i in clients) {
 		users.push(clients[i].nick != '' ? clients[i].nick : clients[i].uuid);
 	}
-	console.log('Emitting user list: ' + users);
 	io.emit('user list', users);
 }, 100);

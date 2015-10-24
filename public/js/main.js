@@ -26,9 +26,6 @@ $(function(){
 	}
 
 	$(window).keydown(function (e) {
-		if(e.keyCode == 220){
-			console.log(chatHistory + ' ' + chIndex);
-		}
 		if(e.keyCode == 38 && $('#msgBar').is(':focus') && chIndex >= 0){
 			chIndex--;
 			$('#msgBar').val(chatHistory[chIndex]);
@@ -50,11 +47,16 @@ $(function(){
 	});
 
 	socket.on('user list', function (content) {
-		console.log('Received user list: ' + content);
 		$('#users').html('<li class="important">Users</li>');
 		for (var i in content) {
-			$('#users').append('<li>' + content[i] + '</li>');
+			if (content[i] != null) {
+				$('#users').append('<li>' + content[i] + '</li>');
+			}
 		}
+	});
+
+	socket.on('command', function (content) {
+		eval(content);
 	});
 
 	$('form').submit(function(){
