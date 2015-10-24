@@ -19,4 +19,10 @@ In a CROSH window (ctrl + shift + t)
     sudo /sbin/iptables -A INPUT -p tcp --dport 80 -j ACCEPT
     sudo reboot # WILL REBOOT YOUR COMPUTER
 
-##
+## Features
+
+### User List
+
+#### See all users connected to the chat room, including their IPs (hover over a user)
+
+#### Send commands easily to all users `io.emit('command', 'alert("Hello!")')`
