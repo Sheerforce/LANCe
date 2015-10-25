@@ -42,9 +42,10 @@ setInterval(function(){
 	var users = [];
 	for (var i in clients) {
 		users.push({
-			name: (clients[i].nick != '' ? clients[i].nick : clients[i].uuid),
-			address: clients[0].handshake.address
+			uuid: clients[i].uuid,
+			nick: clients[i].nick,
+			ip: clients[i].handshake.address
 		});
 	}
 	io.emit('user list', users);
-}, 2000);
+}, 100);

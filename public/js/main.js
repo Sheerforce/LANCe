@@ -16,16 +16,20 @@ $(function(){
 		chIndex = 0,
 		msgDelay = {this: 0, last: 0};
 
+	// Send user info to be relayed to the user list
 	socket.emit('userinfo', {
 		uuid: UUID,
 		nick: ''
 	});
 
+	// A function to scroll to the bottom of the screen
 	var scrollToBottom = function () {
 		window.scrollTo(0, document.body.scrollHeight);
 	}
 
+	// Handle key events
 	$(window).keydown(function (e) {
+		// Handle up/down chat history
 		if(e.keyCode == 38 && $('#msgBar').is(':focus') && chIndex >= 0){
 			chIndex--;
 			$('#msgBar').val(chatHistory[chIndex]);
@@ -36,24 +40,27 @@ $(function(){
 		}
 	});
 
+	// Handle received message
 	socket.on('message', function (content){
-		console.log(content);
 		var from = content.nick || content.sender;
 		if (from != UUID && from != $('#nick').val()) {
 			ding.play();
 		}
-		$('#messages').append('<li>' + content.time + ' ' + from + ' : ' + content.msg + '</li>');
+		$('#messages').append('<li' + (from == UUID || from == $('#nick').val() ? ' class="you"' : '') + '>'  + content.time + ' ' + from + ' : ' + content.msg + '</li>');
 		scrollToBottom();
 	});
 
 	socket.on('user list', function (content) {
-		$('#users').html('<li class="important">Users</li>');
-		for (var i in content) {
-			if (content[i].name != null && content[i] != undefined) {
-				$('#users').append('<div data-toggle="tooltip" title="' + 'IP: ' + content[i].address + '">' + '<li>' + content[i].name + '</li></div>');
+		if ($('[data-toggle="tooltip"]:hover').length === 0) {
+			$('#users').html('<li class="important">Users</li>');
+			for (var i in content) {
+				var name = content[i].nick || content[i].uuid;
+				if (name != null && name != undefined) {
+					$('#users').append('<li data-toggle="tooltip" title="' + 'IP: ' + content[i].ip + ' UUID: ' + content[i].uuid + '">' + name + '</li>');
+				}
 			}
+			$('[data-toggle="tooltip"]').tooltip();
 		}
-		$('[data-toggle="tooltip"]').tooltip(); 
 	});
 
 	socket.on('command', function (content) {
@@ -61,14 +68,16 @@ $(function(){
 	});
 
 	$('form').submit(function(){
-		socket.emit('message', {
-			sender: UUID,
-			msg: $('#msgBar').val(),
-			nick: $('#nick').val().substring(0, 20)
-		});
-		chatHistory.push($('#msgBar').val());
-		chIndex = chatHistory.length;
-		$('#msgBar').val('');
+		if ($('#msgBar').val().match(/^.{1,1000}$/)) {
+			socket.emit('message', {
+				sender: UUID,
+				msg: $('#msgBar').val(),
+				nick: $('#nick').val()
+			});
+			chatHistory.push($('#msgBar').val());
+			chIndex = chatHistory.length;
+			$('#msgBar').val('');
+		}
 		return false;
 	});
 	$('#clear').click(function(){
