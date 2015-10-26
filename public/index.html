@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+<!-- By Sheerforce (https://github.com/sheerforce/LANCe) -->
+
 <html>
 	<head>
 		<title>LANCe</title>
@@ -18,19 +21,19 @@
 		<ul id="sidebar">
 			<li class="important">Settings</li>
 			<hr>
-			<li class="setting">Nickname</li>
-			<li class="setting"><input type="text" id="nick" autocomplete="off"></input></li>
+			<li><label for="nick">Nickname</label></li>
+			<li><input type="text" tabindex="-1" id="nick" autocomplete="off"></input></li>
 			<hr>
-			<li class="setting">Clear Chat</li>
-			<li class="setting"><button id="clear">Clear</button></li>
+			<li><label for="clear">Clear Chat</label></li>
+			<li><button id="clear" tabindex="-1">Clear</button></li>
 			<hr>
 		</ul>
 		<ul id="users">
 			<li class="important">Users</li>
 		</ul>
 		<form action="">
-			<input type="text" id="msgBar" autocomplete="off"></input>
-			<button id="send"><p>Send</p></button>
+			<input type="text" tabindex="1" id="msgBar" autocomplete="off"></input>
+			<button id="send" tabindex="-1"><p>Send</p></button>
 		</form>
 	</body>
 </html>

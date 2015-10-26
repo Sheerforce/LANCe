@@ -30,23 +30,30 @@ $(function(){
 	// Handle key events
 	$(window).keydown(function (e) {
 		// Handle up/down chat history
-		if(e.keyCode == 38 && $('#msgBar').is(':focus') && chIndex >= 0){
+		if (e.keyCode == 38 && $('#msgBar').is(':focus') && chIndex >= 0){
 			chIndex--;
 			$('#msgBar').val(chatHistory[chIndex]);
 		}
-		else if(e.keyCode == 40 && $('#msgBar').is(':focus') && chIndex < chatHistory.length){
+		else if (e.keyCode == 40 && $('#msgBar').is(':focus') && chIndex < chatHistory.length){
 			chIndex++;
 			$('#msgBar').val(chatHistory[chIndex]);
 		}
+	    if ((e.which == 9) || (e.keyCode == 9)) {
+	    	$('#msgBar').focus();
+	    	return false;
+	    }
 	});
 
 	// Handle received message
 	socket.on('message', function (content){
-		var from = content.nick || content.sender;
+		var from = content.nick || content.uuid;
 		if (from != UUID && from != $('#nick').val()) {
+			// Play sound
 			ding.play();
 		}
+		// Append new message
 		$('#messages').append('<li' + (from == UUID || from == $('#nick').val() ? ' class="you"' : '') + '>'  + content.time + ' ' + from + ' : ' + content.msg + '</li>');
+		// Scroll to the newest message
 		scrollToBottom();
 	});
 
@@ -68,9 +75,9 @@ $(function(){
 	});
 
 	$('form').submit(function(){
-		if ($('#msgBar').val().match(/^.{1,1000}$/)) {
+		if (!$('#msgBar').val().match(/$^/)) {
 			socket.emit('message', {
-				sender: UUID,
+				uuid: UUID,
 				msg: $('#msgBar').val(),
 				nick: $('#nick').val()
 			});
@@ -90,6 +97,7 @@ $(function(){
 			});
 		})
 		.focusout(function(){
+			$('#nick').val($('#nick').val().substring(0, 20));
 			socket.emit('userinfo', {
 				uuid: UUID, nick: $('#nick').val()
 			});

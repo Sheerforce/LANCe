@@ -27,7 +27,7 @@ io.on('connection', function (socket) {
 
 	socket.on('message', function (content) {
 		console.log(content);
-		io.emit('message', { time: formatTime(), sender: content.sender, msg: content.msg, nick: content.nick });
+		io.emit('message', { time: formatTime(), uuid: content.uuid, msg: content.msg, nick: content.nick });
 	});
 	socket.on('disconnect', function (content) {
 		clients.splice(clients.indexOf(socket), 1);

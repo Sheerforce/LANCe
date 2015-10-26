@@ -2,7 +2,7 @@
   "name": "LANCe",
   "version": "0.0.0",
   "description": "A Local Area Network Chat application",
-  "author": "Sheerforce https://github.com/sheerforce",
+  "author": "Sheerforce - https://github.com/sheerforce",
   "dependencies": {
     "express": "4.10.2",
     "socket.io": "1.2.0",
