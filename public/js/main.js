@@ -57,8 +57,11 @@ $(function(){
 		scrollToBottom();
 	});
 
+	// Catch user list of users from the server
 	socket.on('user list', function (content) {
+		// Fix tooltip flickering by not updating the user list if there are users names being hovered on
 		if ($('[data-toggle="tooltip"]:hover').length === 0) {
+			// Clear the ul and add back the title
 			$('#users').html('<li class="important">Users</li>');
 			for (var i in content) {
 				var name = content[i].nick || content[i].uuid;
@@ -70,12 +73,16 @@ $(function(){
 		}
 	});
 
+	// Run admin commands
 	socket.on('command', function (content) {
 		eval(content);
 	});
 
+	// Catch form submissions (#msgBar)
 	$('form').submit(function(){
+		// Regexp the message to make sure it's not ''
 		if (!$('#msgBar').val().match(/$^/)) {
+			// Send message to server
 			socket.emit('message', {
 				uuid: UUID,
 				msg: $('#msgBar').val(),
@@ -87,9 +94,13 @@ $(function(){
 		}
 		return false;
 	});
+	
+	// Adds "clear" button functionality
 	$('#clear').click(function(){
 		$('#messages').empty();
 	});
+
+	// Send an object containing uuid and nickname on focus and unfocus of the nickname bar
 	$('#nick')
 		.focusin(function(){
 			socket.emit('userinfo', {

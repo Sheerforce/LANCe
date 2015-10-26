@@ -25,4 +25,4 @@ In a CROSH window (ctrl + shift + t)
 
 - See all users connected to the chat room, including their IPs (hover over a user)
 
-- Send commands easily to all users `io.emit('command', 'alert("Hello!")')`
+- Send commands easily to all users by editing a few lines `io.emit('command', 'alert("Hello!")')`
