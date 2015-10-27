@@ -14,7 +14,7 @@ $(function(){
 		socket = io(),
 		chatHistory = [],
 		chIndex = 0,
-		msgDelay = {this: 0, last: 0};
+		filter = {this: Date.now(), last: Date.now(), delay: 500, increment: 3};
 
 	// Send user info to be relayed to the user list
 	socket.emit('userinfo', {
@@ -41,6 +41,10 @@ $(function(){
 	    if ((e.which == 9) || (e.keyCode == 9)) {
 	    	$('#msgBar').focus();
 	    	return false;
+	    }
+	    // Enter to submit nickname
+	    else if (e.which == 13 || e.keyCode == 13 && $('#nick').is(':focus')) {
+	    	$('#nick').blur();
 	    }
 	});
 
@@ -80,21 +84,29 @@ $(function(){
 
 	// Catch form submissions (#msgBar)
 	$('form').submit(function(){
+		filter.this = Date.now();
 		// Regexp the message to make sure it's not ''
 		if (!$('#msgBar').val().match(/$^/)) {
-			// Send message to server
-			socket.emit('message', {
-				uuid: UUID,
-				msg: $('#msgBar').val(),
-				nick: $('#nick').val()
-			});
-			chatHistory.push($('#msgBar').val());
-			chIndex = chatHistory.length;
-			$('#msgBar').val('');
+			if (filter.this - filter.last > filter.delay) {
+				// Send message to server
+				socket.emit('message', {
+					uuid: UUID,
+					msg: $('#msgBar').val(),
+					nick: $('#nick').val()
+				});
+				chatHistory.push($('#msgBar').val());
+				chIndex = chatHistory.length;
+				$('#msgBar').val('');
+				filter.last = Date.now();
+			}
+			else {
+				filter.delay += filter.increment;
+				console.log(filter.delay);
+			}
 		}
 		return false;
 	});
-	
+
 	// Adds "clear" button functionality
 	$('#clear').click(function(){
 		$('#messages').empty();
