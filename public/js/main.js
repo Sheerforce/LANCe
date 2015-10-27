@@ -33,8 +33,8 @@ $(function(){
 		if (e.keyCode == 38 && $('#msgBar').is(':focus') && chIndex >= 0){
 			chIndex--;
 			$('#msgBar').val(chatHistory[chIndex]);
-		}
-		else if (e.keyCode == 40 && $('#msgBar').is(':focus') && chIndex < chatHistory.length){
+		
+}		else if (e.keyCode == 40 && $('#msgBar').is(':focus') && chIndex < chatHistory.length){
 			chIndex++;
 			$('#msgBar').val(chatHistory[chIndex]);
 		}
