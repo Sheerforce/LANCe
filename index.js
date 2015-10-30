@@ -4,7 +4,7 @@ var http = require('http');
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 var ip = require('ip');
-var port = 3000;
+var port = 80;
 var clients = [];
 
 var formatTime = function(){
@@ -25,12 +25,15 @@ app.use(express.static(__dirname + '/public'));
 io.on('connection', function (socket) {
 	clients.push(socket);
 
+	io.emit('announcement', {msg: 'A user joined from ' + socket.handshake.address, time: formatTime()});
+
 	socket.on('message', function (content) {
 		console.log(content);
 		io.emit('message', { time: formatTime(), uuid: content.uuid, msg: content.msg, nick: content.nick });
 	});
 	socket.on('disconnect', function (content) {
 		clients.splice(clients.indexOf(socket), 1);
+		io.emit('announcement', {msg: 'A user left from ' + socket.handshake.address, time: formatTime()});
 	});
 	socket.on('userinfo', function (content) {
 		socket.uuid = content.uuid;

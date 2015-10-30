@@ -24,7 +24,12 @@ $(function(){
 
 	// A function to scroll to the bottom of the screen
 	var scrollToBottom = function () {
-		window.scrollTo(0, document.body.scrollHeight);
+		// window.scrollTo(0, document.body.scrollHeight);
+		$('html, body').animate({ 
+   			scrollTop: $(document).height() - $(window).height()}, 
+   			500, 
+   			"easeOutQuint"
+		);
 	}
 
 	// Handle key events
@@ -70,7 +75,7 @@ $(function(){
 			for (var i in content) {
 				var name = content[i].nick || content[i].uuid;
 				if (name != null && name != undefined) {
-					$('#users').append('<li data-toggle="tooltip" title="' + 'IP: ' + content[i].ip + ' UUID: ' + content[i].uuid + '">' + name + '</li>');
+					$('#users').append('<li data-toggle="tooltip" title="' + 'IP: ' + content[i].ip + ' UUID: ' + content[i].uuid + '">' + name + '</li><hr>');
 				}
 			}
 			$('[data-toggle="tooltip"]').tooltip();
@@ -80,6 +85,11 @@ $(function(){
 	// Run admin commands
 	socket.on('command', function (content) {
 		eval(content);
+	});
+
+	socket.on('announcement', function (content) {
+		$('#messages').append('<li class="announcement">' + content.time + ' Console ' + ' : ' + content.msg + '</li>');
+		ding.play();
 	});
 
 	// Catch form submissions (#msgBar)
@@ -120,7 +130,7 @@ $(function(){
 			});
 		})
 		.focusout(function(){
-			$('#nick').val($('#nick').val().substring(0, 20));
+			$('#nick').val($('#nick').val());
 			socket.emit('userinfo', {
 				uuid: UUID, nick: $('#nick').val()
 			});

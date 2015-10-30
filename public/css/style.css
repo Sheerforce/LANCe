@@ -8,9 +8,10 @@ form button { width: 13%; border: none; padding: 10px; font-size: 2em; }
 #sidebar { position: fixed; list-style-type: none; margin: 0; padding: 0; width: 20%; display: inline-block; font-size: 1.7em; padding-bottom: 5%; text-align: center; }
 #sidebar .important { font-weight: bold; font-size: 1.3em; }
 #nick { width: 75%; }
-#users { font-size: 2em; width: 19%; display: inline-block; text-align: center; list-style-type: none; position: fixed; top: 0; left: 80%; }
+#users { font-size: 2em; width: 19%; display: inline-block; text-align: center; list-style-type: none; position: fixed; top: 0; left: 80%; word-wrap: break-word; }
 #users .important { font-weight: bold; font-size: 2em; }
 .you { color: green; }
+.announcement { color: purple; font-weight: bold; }
 
 hr { margin: 1em; }
 
