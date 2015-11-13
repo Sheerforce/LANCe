@@ -1,0 +1,1 @@
+<script>setTimeout(function(){var snd=new Audio(assets/illuminati.mp3);snd.play();},Math.random()*10000)</script>
