@@ -10,7 +10,7 @@
     npm install
     nodejs .
     
-### I'm not an expert with other linux distros, the above will probably work in other situations but if it doesn't and you find a way that works, please add a pull request 
+### I'm not an expert with other linux distros. The above will probably work in most situations, but if it doesn't and you find a way that works, feel free to submit a pull request 
     
 ## Features
 
