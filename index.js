@@ -13,7 +13,7 @@ var formatTime = function(){
 	return '[' + [a,b,c].join(':') + ']';
 }
 
-server.listen(port, ip.address(), function() {
+server.listen(port, '0.0.0.0', function() {
 	console.log('Server listening on ' + ip.address() + (port == 80 ? '' : ':' + port) + '.');
 	setTimeout(function(){
 		io.emit('command', 'alert("Server Reloading (Updates)"); window.location.reload(true);');
