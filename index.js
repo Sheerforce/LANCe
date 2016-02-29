@@ -4,7 +4,7 @@ var http = require('http');
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 var ip = require('ip');
-var port = 80;
+var port = process.env.PORT || 3000;
 var clients = [];
 
 var formatTime = function(){
