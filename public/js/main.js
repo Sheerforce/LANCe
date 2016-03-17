@@ -96,7 +96,7 @@ $(function(){
 	$('form').submit(function(){
 		filter.this = Date.now();
 		// Regexp the message to make sure it's not ''
-		if (!$('#msgBar').val().match(/$^/)) {
+		if (!$('#msgBar').val().match(/$^/) && $('#msgBar').val().length < 20) {
 			if (filter.this - filter.last > filter.delay) {
 				// Send message to server
 				socket.emit('message', {
